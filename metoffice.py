@@ -18,3 +18,5 @@ soup = BeautifulSoup(response.content, "html.parser")
 parse_today = soup.findAll('div', {"id":str(today)})
 
 parse_tomorrow = soup.findAll('div', {'id':str(tomorrow)})
+
+pop = soup.findAll('tr', 'step-pop')
