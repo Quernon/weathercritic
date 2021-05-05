@@ -20,3 +20,8 @@ parse_today = soup.findAll('div', {"id":str(today)})
 parse_tomorrow = soup.findAll('div', {'id':str(tomorrow)})
 
 pop = soup.findAll('tr', 'step-pop')
+
+for p in pop:
+    td = p.findAll('td', class_=True)
+    for i in range(0,len(td)):
+        print(p.findAll('td', class_=True)[i].text.strip())
