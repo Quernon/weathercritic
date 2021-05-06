@@ -6,7 +6,6 @@ import datetime
 
 # Scrape met office data and save probability of precipiation forecast to dictionary
 today = datetime.date.today()
-tomorrow = today + datetime.timedelta(days=1)
 
 # Location key corresponding to Manchester
 location_key = 'gcw2hzs1u'
@@ -18,8 +17,6 @@ url = f"https://www.metoffice.gov.uk/weather/forecast/{location_key}#?date={str(
 def metoffice_param(url, paramdict):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
-    parse_today = soup.findAll('div', {"id":str(today)})
-    parse_tomorrow = soup.findAll('div', {'id':str(tomorrow)})
     param = soup.findAll('tr', paramdict)
     param_d = {}
     for p in range(0, len(param)):
