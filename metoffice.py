@@ -17,7 +17,10 @@ soup = BeautifulSoup(response.content, "html.parser")
 
 pop = soup.findAll('tr', 'step-pop')
 
-for p in pop:
-    td = p.findAll('td', class_=True)
+pop_d = {}
+for p in range(0, len(pop)):
+    td = pop[p].findAll('td', class_=True)
+    pop_list = []
     for i in range(0,len(td)):
-        print(p.findAll('td', class_=True)[i].text.strip())
+        pop_list.append(pop[p].findAll('td', class_=True)[i].text.strip())
+    pop_d[p] = pop_list
