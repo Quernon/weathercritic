@@ -1,4 +1,4 @@
-# Python script to scrape forecast data from the metoffice
+# Python script to scrape forecast data from BBC weather
 import requests
 from bs4 import BeautifulSoup
 import datetime
