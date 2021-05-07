@@ -24,7 +24,6 @@ def bbc_param(paramdict):
         param = soup.findAll('div', paramdict)
         param_list = []
         for p in range(0, len(param)):
-            td = param[p].findAll('td', class_=True)
             param_list.append(param[p].text.strip().split('%')[0])
         param_d[day] = param_list
     return param_d
