@@ -27,8 +27,10 @@ def metoffice_param(url, paramdict):
         param_d[p] = param_list
     return param_d
 
-# Probability of precipitaion
-met_pop = metoffice_param(url, {'class':'step-pop'})
 
-# Feels like temperature
-met_flt = metoffice_param(url, {'class':'detailed-view','data-type':'temp'})
+if __name__ == '__main__':
+    # Probability of precipitaion
+    met_pop = metoffice_param(url, {'class':'step-pop'})
+    
+    # Feels like temperature
+    met_flt = metoffice_param(url, {'class':'detailed-view','data-type':'temp'})
