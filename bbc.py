@@ -28,8 +28,10 @@ def bbc_param(tag, paramdict, denominator):
         param_d[day] = param_list
     return param_d
 
-# Probability of precipitaion
-bbc_pop = bbc_param('div', {'class':'wr-u-font-weight-500'}, '%')
 
-# Feels like temperature
-bbc_flt = bbc_param('span', {'class':'wr-value--temperature wr-temperature--time-slot'}, '°')
+if __name__ == '__main__':
+    # Probability of precipitaion
+    bbc_pop = bbc_param('div', {'class':'wr-u-font-weight-500'}, '%')
+    
+    # Feels like temperature
+    bbc_flt = bbc_param('span', {'class':'wr-value--temperature wr-temperature--time-slot'}, '°')
