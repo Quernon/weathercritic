@@ -20,10 +20,10 @@ def metoffice_param(url, paramdict, title):
     param = soup.findAll('tr', paramdict)
     param_d = {}
     for p in range(0, len(param)):
-        td = param[p].findAll('td')
+        all_tds = param[p].findAll('td')
         param_list = []
-        for i in range(0,len(td)):
-            param_list.append(param[p].findAll('td')[i].text.strip())
+        for td in all_tds:
+            param_list.append(td.text.strip())
         param_d[p] = param_list
     for line in param_d:
         param_d[line].insert(0, title)
