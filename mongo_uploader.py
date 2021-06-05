@@ -9,6 +9,7 @@ client = MongoClient(uri,
                      tls=True,
                      tlsCertificateKeyFile='weathercritic_mongodb.pem')
 
+<<<<<<< HEAD
 def append_list(service, param, data):
     db = client['weathercritic']
     collection = db['forecasts']
@@ -21,3 +22,18 @@ def append_list(service, param, data):
 
 if __name__ == '__main__':
     append_list('met', 'pop', 'test')
+=======
+
+db = client['weathercritic']
+collection = db['weathercritic']
+doc_count = collection.count_documents({})
+print(doc_count)
+
+timestamp = datetime.datetime.now()
+
+test_post = {'timestamp':timestamp, 'service':'met', 'param':'pop'}
+
+posts = db.posts
+post_id = posts.insert_one(test_post).inserted_id
+post_id
+>>>>>>> 93eccfe377b746c1845fb8c45642fa23d0bb04cd
