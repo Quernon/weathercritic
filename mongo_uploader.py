@@ -4,8 +4,10 @@ from dayforecast import DayForecast
 from metoffice import metoffice_param
 from bbc import bbc_param
 
-uri = 'mongodb+srv://weatherhenry:XekRWSWiPQTsdyCC@weathercritic0.vdy3o.mongodb.net/weathercritic?retryWrites=true&w=majority'
-client = MongoClient(uri, tls=True, tlsAllowInvalidCertificates=True)
+uri = "mongodb+srv://weathercritic0.vdy3o.mongodb.net/myFirstDatabase?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
+client = MongoClient(uri,
+                     tls=True,
+                     tlsCertificateKeyFile='weathercritic_mongodb.pem')
 
 def insert_tomorrows_forecast():
     db = client['weathercritic']
