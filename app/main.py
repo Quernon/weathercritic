@@ -10,9 +10,10 @@ client = MongoClient(uri, tls=True, tlsAllowInvalidCertificates=True)
 db = client['weathercritic']
 collection = db['forecasts']
 
+
 @app.route('/forecasts')
 def index():
-  results = collection.find({})
-  response = jsonify(list(results))
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  return response
+    results = collection.find({})
+    response = jsonify(list(results))
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
