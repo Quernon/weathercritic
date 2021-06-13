@@ -13,4 +13,6 @@ collection = db['forecasts']
 @app.route('/forecasts')
 def index():
   results = collection.find({})
-  return jsonify(list(results))
+  response = jsonify(list(results))
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  return response
