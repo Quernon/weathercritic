@@ -11,7 +11,7 @@ client = MongoClient(uri,
 # Rainfall station for Ashton-upon-Mersey
 station = '560557'
 
-def insert_yesterdays_data(yesterday=True, date=None):
+def insert_yesterdays_data(yesterday=True, set_date=None):
     db = client['weathercritic']
     collection = db['forecasts']
     
@@ -19,8 +19,8 @@ def insert_yesterdays_data(yesterday=True, date=None):
         # Get yesterdays date as a string
         today = date.today()
         yesterday = str(today - timedelta(days = 1))
-        date=yesterday
-    elif type(date) == str:
+        set_date=yesterday
+    elif type(set_date) == str:
         pass
     else:
         print('Select either yesterday or input a date as a string.')
@@ -28,7 +28,7 @@ def insert_yesterdays_data(yesterday=True, date=None):
     
     
     # Scrape actual rain data
-    actual_pop = historical_rainfall(station, date)
+    actual_pop = historical_rainfall(station, set_date)
     
     # Format scraped data into dictionary of hour:value pairs
     actual_pop.drop(columns=['dateTime'], inplace=True)
@@ -38,7 +38,7 @@ def insert_yesterdays_data(yesterday=True, date=None):
 
 
     # Create DB query and define updated values
-    filters = {'_id':date}
+    filters = {'_id':set_date}
     newvalues = {'$set':{'actual':{'rainfallHourly':actual_pop, 'tempHourly':{}}}}
     
     # Update values
@@ -47,4 +47,4 @@ def insert_yesterdays_data(yesterday=True, date=None):
     return
     
 if __name__ == '__main__':
-    test_day = insert_yesterdays_data(yesterday=False, date = '2021-06-07')
+    test_day = insert_yesterdays_data()
