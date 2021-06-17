@@ -39,7 +39,7 @@ def insert_yesterdays_data(yesterday=True, date=None):
 
     # Create DB query and define updated values
     filters = {'_id':date}
-    newvalues = {'$set':{'actual':{'rainfallHourly':actual_pop}}}
+    newvalues = {'$set':{'actual':{'rainfallHourly':actual_pop, 'tempHourly':{}}}}
     
     # Update values
     collection.update_one(filters, newvalues)
