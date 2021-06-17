@@ -30,20 +30,21 @@ def insert_yesterdays_data(yesterday=True, date=None):
     # Scrape actual rain data
     actual_pop = historical_rainfall(station, date)
     
-    # Create document to contain rainfall data    
-    test_day = DayForecast()
-    test_day.actual.rainfallHourly = actual_pop
-    test_day.actual = vars(test_day.actual)
-    
-    
+    # Format scraped data into dictionary of hour:value pairs
+    actual_pop.drop(columns=['dateTime'], inplace=True)
+    actual_pop = actual_pop.to_dict()
+    actual_pop = actual_pop['value']
+    actual_pop = {str(key): value for key, value in actual_pop.items()}
+
+
     # Create DB query and define updated values
     filters = {'_id':date}
-    newvalues = {'$set':{'actual':{'rainfallHourly':test_day.actual['rainfallHourly']['value'].to_dict()}}}
+    newvalues = {'$set':{'actual':{'rainfallHourly':actual_pop}}}
     
-    
+    # Update values
     collection.update_one(filters, newvalues)
     
-    return test_day
+    return
     
 if __name__ == '__main__':
     test_day = insert_yesterdays_data(yesterday=False, date = '2021-06-07')

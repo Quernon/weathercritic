@@ -7,17 +7,14 @@ import io
 
 today = datetime.date.today()
 
-# 
+# Ashton-Upon-Mersey 
 station = '560557'
 
 
-# URL forms for last 100 readings and today respectively
-url_100 = f"http://environment.data.gov.uk/flood-monitoring/id/stations/{station}/readings.csv?_limit=100&_sorted&parameter=rainfall"
-url_today = f"http://environment.data.gov.uk/flood-monitoring/id/stations/{station}/readings.csv?today&_sorted&parameter=rainfall"
 
 # Fetches last 100 readings
-def defra_historical(station, url):
-    
+def historical_rainfall(station, date):
+    url = f'http://environment.data.gov.uk/flood-monitoring/id/stations/560557/readings.csv?date={date}'
     response = requests.get(url)
     
     if response.ok:
@@ -32,5 +29,5 @@ def defra_historical(station, url):
     return rainfall_csv_resample
 
 if __name__ == '__main__':
-    defra_csv_100 = defra_historical(station, url_100)
-    defra_csv_today = defra_historical(station, url_today)
+    defra_csv = historical_rainfall(station, '2021-06-01')
+    
