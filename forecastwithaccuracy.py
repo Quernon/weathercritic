@@ -5,7 +5,6 @@ def hasAllKeys(forecast):
     hasAll = True
     for i in range(24):
         if not str(i) in forecast:
-            # print('hello', i, forecast)
             hasAll = False
     return hasAll
 

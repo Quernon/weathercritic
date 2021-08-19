@@ -1,4 +1,3 @@
-from dayforecast import DayForecast
 from forecastwithaccuracy import ForecastWithAccuracy
 
 

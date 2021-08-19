@@ -1,14 +1,14 @@
-from app.dayforecastwithaccuracy import DayForecastWithAccuracy
+from dayforecastwithaccuracy import DayForecastWithAccuracy
 import os
 from flask import Flask, jsonify
 from pymongo import MongoClient
-from forecast import Forecast
 from dayforecast import DayForecast
-from forecastwithaccuracy import ForecastWithAccuracy
 
 app = Flask(__name__)
 
-uri = os.environ.get('MONGO_URI')
+# uri = os.environ.get('MONGO_URI')
+uri = 'mongodb+srv://weatherhenry:btxV7fpcMhTXTpng@weathercritic0.vdy3o.mongodb.net/weathercritic?retryWrites=true&w=majority'
+
 
 client = MongoClient(uri, tls=True, tlsAllowInvalidCertificates=True)
 
