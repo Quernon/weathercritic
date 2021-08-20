@@ -6,7 +6,9 @@ from dayforecast import DayForecast
 
 app = Flask(__name__)
 
-uri = os.environ.get('MONGO_URI')
+# uri = os.environ.get('MONGO_URI')
+uri = 'mongodb+srv://weatherhenry:btxV7fpcMhTXTpng@weathercritic0.vdy3o.mongodb.net/weathercritic?retryWrites=true&w=majority'
+
 
 client = MongoClient(uri, tls=True, tlsAllowInvalidCertificates=True)
 
