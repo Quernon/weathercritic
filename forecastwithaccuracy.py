@@ -46,3 +46,19 @@ class ForecastWithAccuracy(Forecast):
                 rainfallAccuracy = rainfallAccuracy - 1/24
         self.rainfallAccuracy = rainfallAccuracy
         self.accuracy = rainfallAccuracy
+        
+    def calculateRainfallAccuracyRMS(self, forecast, actual):
+        hourlyRMS = []
+        for hour in forecast['rainfallHourly']:
+            predictedTempString = forecast['rainfallHourly'][hour].replace(
+                '%', '').replace('<5', '0').replace('≥95', '100')
+            chanceOfRain = float(predictedTempString) / 100
+            actualRainfall = actual['rainfallHourly'][hour]
+            if actualRainfall > 0:
+                binaryActualRainfall = 1
+            else:
+                binaryActualRainfall = 0
+            hourlyRMS.append((chanceOfRain - binaryActualRainfall) ** 2)
+        rainfallAccuracyRMS = sum(hourlyRMS) ** 0.5
+        self.rainfallAccuracyRMS = rainfallAccuracyRMS
+            
