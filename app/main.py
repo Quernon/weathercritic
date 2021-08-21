@@ -15,13 +15,15 @@ client = MongoClient(uri, tls=True, tlsAllowInvalidCertificates=True)
 db = client['weathercritic']
 collection = db['forecasts']
 
+accuracyKeyName = 'rainfallAccuracyRMS'
+
 
 @app.route('/forecasts')
 def index():
     results = collection.find({})
     resultsList = list(map(withAccuracy, list(results)))
     resultsWithAccuracyOnly = list(filter(
-        lambda day: 'bbc' in day and 'rainfallAccuracyRMS' in day['bbc'], resultsList))
+        lambda day: 'bbc' in day and accuracyKeyName in day['bbc'], resultsList))
     response = jsonify(resultsWithAccuracyOnly)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
@@ -77,14 +79,14 @@ def withAccuracyOnly(dayForecastDict):
     dayForecast = DayForecast(dayForecastDict)
     dayForecastWithAccuracy = DayForecastWithAccuracy(dayForecast)
     diction = DayForecastWithAccuracy.asDict(dayForecastWithAccuracy)
-    draw = 'accuracy' in diction['met'] and 'accuracy' in diction[
-        'bbc'] and diction['met']['accuracy'] == diction['bbc']['accuracy']
-    winner = 'met' if 'accuracy' in diction['met'] and 'accuracy' in diction[
-        'bbc'] and diction['met']['accuracy'] > diction['bbc']['accuracy'] else 'bbc'
+    draw = accuracyKeyName in diction['met'] and accuracyKeyName in diction[
+        'bbc'] and diction['met'][accuracyKeyName] == diction['bbc'][accuracyKeyName]
+    winner = 'met' if accuracyKeyName in diction['met'] and accuracyKeyName in diction[
+        'bbc'] and diction['met'][accuracyKeyName] > diction['bbc'][accuracyKeyName] else 'bbc'
     return {
         'date': diction['_id'],
-        'bbcAccuracy': diction['bbc']['accuracy'] if 'accuracy' in diction['bbc'] else False,
-        'metAccuracy': diction['met']['accuracy'] if 'accuracy' in diction['met'] else False,
+        'bbcAccuracy': diction['bbc'][accuracyKeyName] if accuracyKeyName in diction['bbc'] else False,
+        'metAccuracy': diction['met'][accuracyKeyName] if accuracyKeyName in diction['met'] else False,
         'winner': 'draw' if draw else winner
     }
 
