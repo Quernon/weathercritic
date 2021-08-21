@@ -21,7 +21,7 @@ def index():
     results = collection.find({})
     resultsList = list(map(withAccuracy, list(results)))
     resultsWithAccuracyOnly = list(filter(
-        lambda day: 'bbc' in day and 'accuracy' in day['bbc'], resultsList))
+        lambda day: 'bbc' in day and 'rainfallAccuracyRMS' in day['bbc'], resultsList))
     response = jsonify(resultsWithAccuracyOnly)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

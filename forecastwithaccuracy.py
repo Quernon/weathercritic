@@ -18,7 +18,7 @@ class ForecastWithAccuracy(Forecast):
     def __init__(self, forecast, actual):
         if forecast['rainfallHourly'] and hasAllKeys(forecast['rainfallHourly']) and actual['rainfallHourly'] and hasAllKeys(actual['rainfallHourly']):
             self.rainfallHourly = forecast['rainfallHourly']
-            self.calculateRainfallAccuracyBasic(forecast, actual)
+            self.calculateRainfallAccuracyRMS(forecast, actual)
 
         if forecast['tempHourly'] and hasAllKeys(forecast['tempHourly']) and actual['tempHourly'] and hasAllKeys(actual['tempHourly']):
             self.tempHourly = forecast['tempHourly']
@@ -46,7 +46,7 @@ class ForecastWithAccuracy(Forecast):
                 rainfallAccuracy = rainfallAccuracy - 1/24
         self.rainfallAccuracy = rainfallAccuracy
         self.accuracy = rainfallAccuracy
-        
+
     def calculateRainfallAccuracyRMS(self, forecast, actual):
         hourlyRMS = []
         for hour in forecast['rainfallHourly']:
@@ -61,4 +61,3 @@ class ForecastWithAccuracy(Forecast):
             hourlyRMS.append((chanceOfRain - binaryActualRainfall) ** 2)
         rainfallAccuracyRMS = sum(hourlyRMS) ** 0.5
         self.rainfallAccuracyRMS = rainfallAccuracyRMS
-            
